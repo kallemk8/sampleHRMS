@@ -84,29 +84,47 @@ export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     const login = async (email, password) => {
-        const response = await axios.post('/api/auth/login', {
-            email,
-            password,
-        })
-        const { accessToken, user } = response.data
+        var req = {
+            "username":email,
+            "password":password
+        }
+        const response = await axios.post('http://localhost:5000/login', req)
+        
+        if(response.data.status){
+            const { accessToken, user } = response.data
+            setSession(accessToken)
 
-        setSession(accessToken)
-
-        dispatch({
-            type: 'LOGIN',
-            payload: {
-                user,
-            },
-        })
+            dispatch({
+                type: 'LOGIN',
+                payload: {
+                    user,
+                },
+            })
+        }else{
+            alert("Please enter valid email and password")
+        }
+        
     }
 
-    const register = async (email, username, password) => {
-        const response = await axios.post('/api/auth/register', {
-            email,
-            username,
-            password,
-        })
+    const register = async (email, username, password, comapnySize, mobile, companyName) => {
+        var req = {
+            "ComapnyName":companyName,
+            "BrandName":"",
+            "Website":"",
+            "Domain":"",
+            "CompanySize":comapnySize,
+            "Modules":"",
+            "Role":"",
+            "Name":username,
+            "Mobile":mobile,
+            "Email":email,
+            "Gender":"",
+            "Password":password,
 
+        }
+
+        const response = await axios.post('http://localhost:5000/signup', req)
+        
         const { accessToken, user } = response.data
 
         setSession(accessToken)

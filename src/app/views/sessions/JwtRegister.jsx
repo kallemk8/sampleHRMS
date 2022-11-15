@@ -37,6 +37,9 @@ const initialValues = {
   email: '',
   password: '',
   username: '',
+  mobile:'',
+  companyName:'',
+  comapnySize:'',
   remember: true,
 };
 
@@ -58,7 +61,7 @@ const JwtRegister = () => {
     setLoading(true);
 
     try {
-      register(values.email, values.username, values.password);
+      register(values.email, values.username, values.password, values.comapnySize, values.mobile, values.companyName);
       navigate('/');
       setLoading(false);
     } catch (e) {
@@ -117,6 +120,49 @@ const JwtRegister = () => {
                       onChange={handleChange}
                       helperText={touched.email && errors.email}
                       error={Boolean(errors.email && touched.email)}
+                      sx={{ mb: 3 }}
+                    />
+                    <TextField
+                      fullWidth
+                      size="small"
+                      type="text"
+                      name="mobile"
+                      label="Mobile"
+                      variant="outlined"
+                      onBlur={handleBlur}
+                      value={values.mobile}
+                      onChange={handleChange}
+                      helperText={touched.mobile && errors.mobile}
+                      error={Boolean(errors.mobile && touched.mobile)}
+                      sx={{ mb: 3 }}
+                    />
+
+                    <TextField
+                      fullWidth
+                      size="small"
+                      type="text"
+                      name="companyName"
+                      label="Company Name"
+                      variant="outlined"
+                      onBlur={handleBlur}
+                      value={values.companyName}
+                      onChange={handleChange}
+                      helperText={touched.companyName && errors.companyName}
+                      error={Boolean(errors.companyName && touched.companyName)}
+                      sx={{ mb: 3 }}
+                    />
+                    <TextField
+                      fullWidth
+                      size="small"
+                      type="text"
+                      name="comapnySize"
+                      label="Company Size"
+                      variant="outlined"
+                      onBlur={handleBlur}
+                      value={values.comapnySize}
+                      onChange={handleChange}
+                      helperText={touched.comapnySize && errors.comapnySize}
+                      error={Boolean(errors.comapnySize && touched.comapnySize)}
                       sx={{ mb: 3 }}
                     />
                     <TextField
